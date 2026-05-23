@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairWeb — Professionelle Websites zum fairen Preis | fair2web.de</title>
+  <meta name="description" content="FairWeb — Moderne Websites zu fairen Preisen. Professionell, persönlich, transparent. Ab 200 €.">
+
+  <!-- ── Favicon (SVG, inline) ── -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='22' font-family='Inter,system-ui,sans-serif' font-size='15' font-weight='800' fill='%23c9a44a' text-anchor='middle'%3Efw%3C/text%3E%3C/svg%3E">
+  <link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='22' font-family='Inter,system-ui,sans-serif' font-size='15' font-weight='800' fill='%23c9a44a' text-anchor='middle'%3Efw%3C/text%3E%3C/svg%3E">
+
+  <!-- ── Open Graph (WhatsApp / LinkedIn / Social Preview) ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fair2web.de/">
+  <meta property="og:title" content="FairWeb — Professionelle Websites zum fairen Preis">
+  <meta property="og:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 200 €. Erstberatung kostenlos.">
+  <meta property="og:image" content="https://fair2web.de/og-image.jpg">
+  <meta property="og:locale" content="de_DE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FairWeb — Professionelle Websites zum fairen Preis">
+  <meta name="twitter:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 200 €.">
+  <meta name="twitter:image" content="https://fair2web.de/og-image.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;cursor:none !important}
+    :root{--transition:0.3s ease}
+
+    [data-theme="dark"]{
+      --bg:#09090b;--bg-el:#111113;--bg-card:#16161a;--bg-card-h:#1c1c21;
+      --text:#f0f0f0;--text-m:#888;--accent:#c9a44a;
+      --accent-glow:rgba(201,164,74,.15);--border:#222225;--border-l:#1a1a1e;
+    }
+    [data-theme="light"]{
+      --bg:#fafafa;--bg-el:#fff;--bg-card:#fff;--bg-card-h:#f5f5f5;
+      --text:#111;--text-m:#666;--accent:#b8892e;
+      --accent-glow:rgba(184,137,46,.14);--border:#e0e0e0;--border-l:#eee;
+    }
+    /* Light-Mode-Glow sichtbarer */
+    [data-theme="light"] .bg-glow{
+      background:radial-gradient(circle,rgba(184,137,46,.13) 0%,transparent 70%);
+    }
+    [data-theme="light"] .ambient-gl{
+      background:radial-gradient(circle,rgba(184,137,46,.1) 0%,transparent 70%);
+    }
+    /* Hero-Dekrations-Kreis im Light-Mode deutlich sichtbar */
+    [data-theme="light"] .hero-content::before{
+      background:radial-gradient(circle,rgba(184,137,46,.28) 0%,rgba(184,137,46,.08) 40%,transparent 70%);
+      width:600px;height:600px;
+    }
+
+    body{
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg);color:var(--text);line-height:1.7;
+      overflow:hidden;height:100vh;
+      transition:background var(--transition),color var(--transition);
+    }
+
+    /* ── Fixed UI ── */
+    .theme-toggle{
+      position:fixed;top:1.5rem;right:1.5rem;z-index:3000;
+      width:46px;height:46px;border-radius:50%;border:1px solid var(--border);
+      background:var(--bg-el);color:var(--text);cursor:pointer;
+      display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+      transition:all var(--transition);backdrop-filter:blur(10px);
+    }
+    .theme-toggle:hover{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow)}
+
+
+    /* ── Cube Viewport ── */
+    .cube-viewport{
+      position:fixed;inset:0;
+      perspective:1200px;
+      perspective-origin:50% 50%;
+      transform-style:preserve-3d;
+    }
+
+    .cube-face{
+      position:absolute;inset:0;
+      overflow-y:auto;overflow-x:hidden;
+      background:var(--bg);
+      visibility:hidden;
+      will-change:transform;
+      border:1px solid rgba(201,164,74,.2);
+    }
+    .face-content,.hero-content{
+      will-change:transform,opacity;
+    }
+    .cube-face.bg-el{background:var(--bg-el)}
+    .cube-face.active{visibility:visible}
+
+    .cube-face::-webkit-scrollbar{width:4px}
+    .cube-face::-webkit-scrollbar-track{background:transparent}
+    .cube-face::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+    /* ── Scroll Hint ── */
+    .scroll-hint{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:.4rem;
+      color:var(--text-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+      animation:hintBob 2s ease-in-out infinite;
+    }
+    @keyframes hintBob{
+      0%,100%{transform:translateX(-50%) translateY(0);opacity:1}
+      50%{transform:translateX(-50%) translateY(8px);opacity:.4}
+    }
+
+    /* ── Section Layout ── */
+    .face-content{
+      max-width:1100px;margin:0 auto;padding:4rem 2rem;
+      min-height:100%;display:flex;flex-direction:column;justify-content:center;
+    }
+    .section-label{
+      font-size:.72rem;font-weight:600;letter-spacing:.15em;
+      text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;
+    }
+    .section-title{
+      font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:700;
+      line-height:1.2;margin-bottom:1rem;letter-spacing:-.02em;
+      transition:transform .3s cubic-bezier(.16,1,.3,1);display:inline-block;
+    }
+    .section-title:hover{transform:translateX(6px) skewX(-0.5deg)}
+    .section-subtitle{font-size:1rem;color:var(--text-m);max-width:580px;line-height:1.8}
+
+    /* ── Reveal ── */
+    .reveal{
+      opacity:0;transform:translateY(25px);
+      transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.vis{opacity:1;transform:translateY(0)}
+    .rd1{transition-delay:.08s}.rd2{transition-delay:.16s}
+    .rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
+
+    /* ── Hero ── */
+    .hero-content{
+      max-width:1100px;margin:0 auto;padding:3rem 2rem 2rem;
+      min-height:100%;display:flex;flex-direction:column;justify-content:center;position:relative;
+    }
+    .hero-content::before{
+      content:'';position:absolute;top:5%;right:-15%;width:500px;height:500px;
+      background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);
+      border-radius:50%;pointer-events:none;
+      animation:heroPulse 9s ease-in-out infinite;
+      transform-origin:center center;
+    }
+    @keyframes heroPulse{
+      0%,100%{transform:scale(1);opacity:1}
+      50%{transform:scale(1.22);opacity:.65}
+    }
+
+    /* ── Ambient Idle Glow ── */
+    .ambient-gl{
+      position:fixed;z-index:3998;pointer-events:none;
+      width:800px;height:800px;border-radius:50%;
+      background:radial-gradient(circle,rgba(201,164,74,.045) 0%,transparent 70%);
+      top:0;left:0;
+      opacity:0;transition:opacity 3s ease;
+      will-change:transform,opacity;
+    }
+    body.idle .ambient-gl{
+      opacity:1;
+      animation:ambientWander 18s ease-in-out infinite;
+    }
+    @keyframes ambientWander{
+      0%  {transform:translate(12vw,25vh) scale(1)}
+      25% {transform:translate(62vw,12vh) scale(1.12)}
+      50% {transform:translate(55vw,58vh) scale(0.92)}
+      75% {transform:translate(18vw,60vh) scale(1.06)}
+      100%{transform:translate(12vw,25vh) scale(1)}
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .9rem;
+      border:1px solid var(--border);border-radius:100px;font-size:.78rem;
+      color:var(--text-m);width:fit-content;margin-bottom:1.5rem;background:var(--bg-el);
+    }
+    .hero-badge-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;animation:pDot 2s ease-in-out infinite}
+    @keyframes pDot{0%,100%{opacity:1}50%{opacity:.4}}
+
+    /* Hero title + tile row */
+    .hero-title-row{display:flex;align-items:center;gap:2rem;margin-bottom:1.2rem;flex-wrap:wrap}
+    .hero-title{
+      font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:800;
+      line-height:1.08;letter-spacing:-.03em;margin-bottom:0;
+      transition:transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    .hero-title:hover{transform:translateX(6px) skewX(-0.5deg)}
+    .hero-title .accent{color:var(--accent)}
+    .fh{position:relative;display:inline-block}
+    .fh::after{
+      content:'';position:absolute;bottom:3px;left:0;right:0;height:5px;
+      background:var(--accent);opacity:.3;border-radius:3px;
+    }
+
+    /* ── Flip Tile ── */
+    .flip-tile{
+      width:128px;height:128px;perspective:800px;flex-shrink:0;
+    }
+    .flip-inner{
+      width:100%;height:100%;position:relative;
+      transform-style:preserve-3d;
+      transition:transform .75s cubic-bezier(.16,1,.3,1);
+    }
+    .flip-tile:hover .flip-inner{transform:rotateY(180deg)}
+
+    /* Intro-Spin: startet schnell, bremst sanft ab */
+    @keyframes tileIntroSpin{
+      from{transform:rotateY(0deg)}
+      to  {transform:rotateY(1080deg)}   /* 3 volle Umdrehungen */
+    }
+    .flip-inner.intro-spin{
+      animation:tileIntroSpin 2.4s cubic-bezier(0.06,0.85,0.18,1); /* kein forwards → kein Kleben */
+      pointer-events:none;
+    }
+    .flip-front,.flip-back{
+      position:absolute;inset:0;border-radius:18px;
+      backface-visibility:hidden;-webkit-backface-visibility:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+    /* Vorderseite — zeigt "2 / ZUM" (der Eyecatcher) */
+    .flip-front{
+      background:var(--bg-el);
+      border:1px solid rgba(201,164,74,.5);
+      box-shadow:inset 0 0 60px rgba(201,164,74,.06),0 0 0 1px rgba(201,164,74,.08);
+      transition:border-color .3s ease,box-shadow .3s ease;
+    }
+    .flip-tile:hover .flip-front{
+      border-color:rgba(201,164,74,.75);
+      box-shadow:0 0 30px rgba(201,164,74,.14),inset 0 0 50px rgba(201,164,74,.08);
+    }
+    /* Rückseite — zeigt "fair" in Gold */
+    .flip-back{
+      background:var(--bg-el);
+      border:1px solid rgba(201,164,74,.3);
+      transform:rotateY(180deg);
+      box-shadow:inset 0 0 30px rgba(201,164,74,.04);
+    }
+    .ftb-wrap{display:flex;flex-direction:column;align-items:center;line-height:1}
+    .ftb-2{
+      font-size:4.6rem;font-weight:800;color:var(--accent);line-height:.9;
+      text-shadow:0 0 30px rgba(201,164,74,.55),0 0 80px rgba(201,164,74,.2);
+    }
+    .ftb-bar{display:flex;align-items:center;gap:6px;margin-top:8px}
+    .ftb-line{display:block;width:18px;height:1px;background:rgba(201,164,74,.5)}
+    .ftb-zum{
+      font-size:.9rem;font-weight:600;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--accent);opacity:.85;
+    }
+    /* "fair" auf der Rückseite */
+    .ftb-fair{
+      font-size:2.6rem;font-weight:800;color:var(--accent);letter-spacing:-.02em;
+      text-shadow:0 0 30px rgba(201,164,74,.55),0 0 80px rgba(201,164,74,.2);
+    }
+    /* Unterstreichen mit Textfarbe (für "Web" in Webseite) */
+    .fh-t{position:relative;display:inline-block}
+    .fh-t::after{
+      content:'';position:absolute;bottom:3px;left:0;right:0;height:5px;
+      background:var(--text);opacity:.18;border-radius:3px;
+    }
+    .hero-desc{font-size:1.05rem;color:var(--text-m);max-width:520px;margin-bottom:2rem;line-height:1.8}
+    .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;
+      border-radius:100px;font-size:.88rem;font-weight:500;text-decoration:none;
+      transition:all var(--transition);cursor:pointer;border:none;font-family:inherit;
+    }
+    .btn-p{background:var(--accent);color:#0a0a0a}
+    .btn-p:hover{box-shadow:0 0 30px var(--accent-glow),0 4px 20px rgba(0,0,0,.3);transform:translateY(-2px)}
+    .btn-g{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .btn-g:hover{border-color:var(--accent);color:var(--accent)}
+
+    .hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border-l)}
+    .hs-n{font-size:1.35rem;font-weight:700}
+    .hs-l{font-size:.75rem;color:var(--text-m);margin-top:.2rem}
+
+    .fair-promise{
+      margin-top:2rem;padding:1.2rem 1.5rem;border:1px solid var(--border);border-radius:12px;
+      background:var(--bg-card);font-size:.9rem;color:var(--text-m);line-height:1.7;max-width:580px;
+    }
+    .fair-promise strong{color:var(--accent);font-weight:600}
+
+    /* ── Problem ── */
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2rem}
+    .pcard{padding:1.5rem;border:1px solid var(--border);border-radius:14px;background:var(--bg-card);transition:all var(--transition)}
+    .pcard:hover{background:var(--bg-card-h);border-color:var(--accent);transform:translateY(-3px)}
+    .pcard-i{margin-bottom:.75rem;display:block;color:var(--accent)}
+    .pcard-i svg{width:1.9rem;height:1.9rem;display:block;transition:filter .3s ease}
+    .pcard:hover .pcard-i svg{filter:drop-shadow(0 0 8px rgba(201,164,74,.5))}
+    .pcard h3{font-size:1rem;font-weight:600;margin-bottom:.5rem}
+    .pcard p{font-size:.85rem;color:var(--text-m);line-height:1.7}
+
+    /* ── Steps ── */
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem}
+    .step{
+      padding:1.2rem;border-radius:12px;
+      transition:transform .35s cubic-bezier(.16,1,.3,1),background .35s ease,box-shadow .35s ease;
+    }
+    .step:hover{
+      transform:translateY(-8px) scale(1.03);
+      background:var(--bg-card);
+      box-shadow:0 10px 30px rgba(0,0,0,.2),0 0 0 1px rgba(201,164,74,.15);
+    }
+    .sn{font-size:2.5rem;font-weight:700;color:var(--accent);opacity:.2;line-height:1;margin-bottom:.6rem;transition:opacity .35s,text-shadow .35s}
+    .step:hover .sn{opacity:.5;text-shadow:0 0 25px var(--accent-glow)}
+    .step h3{font-size:1rem;font-weight:600;margin-bottom:.35rem;transition:color .3s}
+    .step:hover h3{color:var(--accent)}
+    .step p{font-size:.85rem;color:var(--text-m);line-height:1.7}
+
+    /* ── Packages ── */
+    .pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2rem}
+    .pkg{
+      padding:2rem;border:1px solid var(--border);border-radius:18px;
+      background:var(--bg-card);transition:all var(--transition);position:relative;overflow:hidden;
+      display:flex;flex-direction:column;
+    }
+    .pkg:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.2)}
+    .pkg.ft{border-color:var(--accent)}
+    .pkg.ft::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .pkg-b{
+      display:inline-block;padding:.25rem .7rem;background:var(--accent-glow);
+      color:var(--accent);border-radius:100px;font-size:.68rem;font-weight:600;
+      letter-spacing:.05em;text-transform:uppercase;margin-bottom:1rem;
+    }
+    .pkg-nm{font-size:1.15rem;font-weight:700;margin-bottom:.35rem}
+    .pkg-pr{font-size:2rem;font-weight:700;color:var(--accent);margin-bottom:.15rem}
+    .pkg-nt{font-size:.75rem;color:var(--text-m);margin-bottom:1.2rem}
+    .pkg-ft{list-style:none;margin-bottom:1.5rem}
+    .pkg-ft li{
+      padding:.4rem 0;font-size:.83rem;color:var(--text-m);
+      display:flex;align-items:flex-start;gap:.6rem;border-bottom:1px solid var(--border-l);
+    }
+    .pkg-ft li:last-child{border-bottom:none}
+    .ck{color:var(--accent);font-weight:600;flex-shrink:0;margin-top:1px}
+    .pkg .btn{width:100%;justify-content:center;margin-top:auto}
+
+    /* ── Examples ── */
+    .exg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2rem}
+    .exc{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg-card);transition:all var(--transition)}
+    .exc:hover{transform:translateY(-3px);border-color:var(--accent)}
+    .exp{height:160px;background:var(--bg-el);display:flex;align-items:center;justify-content:center;position:relative;color:var(--accent)}
+    .exp svg{width:3rem;height:3rem;display:block;opacity:.85}
+    .exp::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow),transparent)}
+    .exi{padding:1.2rem}
+    .exi h3{font-size:.95rem;font-weight:600;margin-bottom:.2rem}
+    .exi p{font-size:.8rem;color:var(--text-m)}
+    .ext{display:inline-block;padding:.15rem .5rem;background:var(--accent-glow);color:var(--accent);border-radius:5px;font-size:.65rem;font-weight:600;margin-top:.5rem}
+
+    /* ── Contact ── */
+    .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
+    .cinfo p{color:var(--text-m);font-size:.9rem;margin-bottom:1.5rem;line-height:1.8}
+    .cm{display:flex;align-items:center;gap:.8rem;padding:.75rem 0;border-bottom:1px solid var(--border-l)}
+    .cm-i{width:40px;height:40px;border-radius:10px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)}
+    .cm-i svg{width:1.1rem;height:1.1rem;display:block}
+    .cm-l{color:var(--text-m);font-size:.7rem;margin-bottom:.1rem}
+    .cm-t{font-size:.85rem}
+    .cform{display:flex;flex-direction:column;gap:.8rem}
+    .fg{display:flex;flex-direction:column;gap:.3rem}
+    .fg label{font-size:.75rem;font-weight:500;color:var(--text-m)}
+    .fg input,.fg textarea{
+      padding:.75rem .9rem;border:1px solid var(--border);border-radius:10px;
+      background:var(--bg-card);color:var(--text);font-family:inherit;font-size:.85rem;
+      transition:all var(--transition);outline:none;
+    }
+    .fg input:focus,.fg textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+    .fg textarea{min-height:90px;resize:vertical}
+
+    /* ── Custom Dropdown ── */
+    .cs-wrap{position:relative;user-select:none}
+    .cs-trigger{
+      display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+      padding:.75rem .9rem;border:1px solid var(--border);border-radius:10px;
+      background:var(--bg-card);color:var(--text);font-family:inherit;font-size:.85rem;
+      cursor:pointer;transition:border-color var(--transition),box-shadow var(--transition);
+    }
+    .cs-trigger:hover,.cs-wrap.open .cs-trigger{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+    .cs-val{flex:1;color:var(--text-m);transition:color .2s ease}
+    .cs-val.chosen{color:var(--text)}
+    .cs-arr{
+      width:16px;height:16px;color:var(--text-m);flex-shrink:0;
+      transition:transform .3s cubic-bezier(.16,1,.3,1),color .2s ease;
+    }
+    .cs-wrap.open .cs-arr{transform:rotate(180deg);color:var(--accent)}
+    .cs-list{
+      position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:200;
+      background:var(--bg-card);border:1px solid rgba(201,164,74,.4);border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 0 1px rgba(201,164,74,.08);
+      opacity:0;transform:translateY(-8px);pointer-events:none;
+      transition:opacity .22s cubic-bezier(.16,1,.3,1),transform .22s cubic-bezier(.16,1,.3,1);
+    }
+    .cs-wrap.open .cs-list{opacity:1;transform:translateY(0);pointer-events:all}
+    .cs-item{
+      padding:.72rem .9rem;font-size:.85rem;color:var(--text-m);cursor:pointer;
+      border-bottom:1px solid var(--border-l);
+      transition:background .18s ease,color .18s ease,padding-left .18s ease;
+    }
+    .cs-item:last-child{border-bottom:none}
+    .cs-item:first-child{color:var(--text-m);opacity:.6}
+    .cs-item:first-child:hover{padding-left:.9rem;background:transparent;color:var(--text-m)}
+    .cs-item:hover{background:var(--bg-card-h);color:var(--text);padding-left:1.3rem}
+    .cs-item.sel{color:var(--accent);background:var(--accent-glow)}
+    .cs-item.sel::before{content:'✓ ';font-size:.75em;opacity:.8}
+
+    /* ── FAQ ── */
+    .flist{margin-top:1.5rem;max-width:700px}
+    .fi{
+      border-bottom:1px solid var(--border);
+      border-radius:10px;
+      transition:background .3s ease,border-color .3s ease,padding .3s ease;
+    }
+    .fi:hover{
+      background:var(--bg-card);
+      border-color:transparent;
+      padding:0 1rem;
+    }
+    .fi:hover + .fi{border-top-color:transparent}
+    .fq{
+      width:100%;text-align:left;background:none;border:none;color:var(--text);
+      font-family:inherit;font-size:.92rem;font-weight:500;padding:1.1rem 0;
+      cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+      gap:1rem;transition:color .3s ease,transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    .fq:hover{color:var(--accent);transform:translateX(4px)}
+    .ft{
+      font-size:1.1rem;transition:transform .35s cubic-bezier(.16,1,.3,1),color .3s ease;
+      color:var(--text-m);flex-shrink:0;
+    }
+    .fi:hover .ft{color:var(--accent)}
+    .fi.active .ft{transform:rotate(45deg);color:var(--accent)}
+    .fa{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1),padding .4s cubic-bezier(.16,1,.3,1)}
+    .fi.active .fa{max-height:250px;padding-bottom:1rem}
+    .fa p{font-size:.85rem;color:var(--text-m);line-height:1.8}
+
+    /* ══ Hover-Animationen ══ */
+
+    /* Hero Badge — dezent (nicht direkt klickbar) */
+    .hero-badge{transition:border-color .35s ease,transform .35s ease,background .35s ease}
+    .hero-badge:hover{border-color:rgba(201,164,74,.35);transform:translateY(-2px);background:var(--bg-card)}
+
+    /* Hero Stats — dezent */
+    .hero-stats > div{transition:transform .3s cubic-bezier(.16,1,.3,1);padding:.4rem .6rem;border-radius:8px;margin:-.4rem -.6rem}
+    .hero-stats > div:hover{transform:translateY(-4px)}
+    .hs-n{transition:color .3s ease}
+    .hero-stats > div:hover .hs-n{color:var(--accent)}
+
+    /* Fair Promise Box — dezent */
+    .fair-promise{transition:border-color .35s ease,background .35s ease}
+    .fair-promise:hover{border-color:rgba(201,164,74,.3);background:var(--bg-card-h)}
+
+    /* Section Label — dezent */
+    .section-label{transition:letter-spacing .35s ease,opacity .35s ease}
+    .section-label:hover{letter-spacing:.2em}
+
+    /* Section Subtitle — dezent */
+    .section-subtitle{transition:transform .3s ease;display:block}
+    .section-subtitle:hover{transform:translateX(3px)}
+
+    /* Hero Desc — dezent */
+    .hero-desc{transition:transform .3s ease}
+    .hero-desc:hover{transform:translateX(3px)}
+
+    /* Package Features — dezent */
+    .pkg-ft li{transition:padding-left .25s ease,color .25s ease}
+    .pkg-ft li:hover{padding-left:.6rem;color:var(--text)}
+    .ck{transition:transform .25s cubic-bezier(.16,1,.3,1)}
+    .pkg-ft li:hover .ck{transform:scale(1.25)}
+
+    /* Package Badge — dezent */
+    .pkg-b{transition:letter-spacing .3s ease}
+    .pkg-b:hover{letter-spacing:.1em}
+
+    /* Example thumbnail — dezent */
+    .exp{transition:font-size .35s cubic-bezier(.16,1,.3,1)}
+    .exc:hover .exp{font-size:3.4rem}
+
+    /* Contact Methods — stark (klickbar: Email, Tel) */
+    .cm{
+      transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease,
+                 border-color .3s ease,border-radius .3s ease,padding .3s ease;
+    }
+    .cm:hover{
+      transform:translateX(8px);
+      background:var(--bg-card);
+      border-color:transparent;
+      border-radius:10px;
+      padding-left:.8rem;padding-right:.8rem;
+      margin-left:-.8rem;margin-right:-.8rem;
+    }
+    .cm-i{transition:background .3s ease,box-shadow .3s ease,transform .3s cubic-bezier(.16,1,.3,1)}
+    .cm:hover .cm-i{background:rgba(201,164,74,.25);box-shadow:0 0 16px var(--accent-glow);transform:scale(1.08)}
+    .cm-t{transition:color .3s ease}
+    .cm:hover .cm-t{color:var(--accent)}
+
+    /* Form Labels — dezent */
+    .fg label{transition:color .25s ease,letter-spacing .25s ease}
+    .fg:hover label{color:var(--text)}
+
+    /* Footer Links — stark (klickbar) */
+    .ffl a{display:inline-block;transition:color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)}
+    .ffl a:hover{transform:translateY(-3px)}
+
+    /* Footer Brand — dezent */
+    .ffb{transition:transform .3s ease}
+    .ffb:hover{transform:translateX(3px)}
+
+    /* Footer Tagline — dezent */
+    .fft{transition:color .3s ease}
+    .ffb:hover ~ .fft,.ffi div:hover .fft{color:var(--text-m)}
+
+    /* ── Footer ── */
+    .ffoot{margin-top:auto;padding:2rem 0 1rem;border-top:1px solid var(--border-l)}
+    .ffi{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+    .ffb{font-weight:700;font-size:1rem;letter-spacing:-.02em}
+    .ffb .bf{color:var(--accent)}
+    .fft{font-size:.7rem;color:var(--text-m)}
+    .ffl{display:flex;gap:1.5rem}
+    .ffl a{color:var(--text-m);text-decoration:none;font-size:.8rem;transition:color var(--transition)}
+    .ffl a:hover{color:var(--accent)}
+    .ffc{font-size:.72rem;color:var(--text-m);width:100%;text-align:center;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-l)}
+
+    /* ── WhatsApp ── */
+    .waf{
+      display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:3000;
+      width:54px;height:54px;border-radius:50%;background:#25d366;
+      align-items:center;justify-content:center;text-decoration:none;
+      box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform var(--transition);
+    }
+    .waf:hover{transform:scale(1.1)}
+    .waf svg{width:26px;height:26px;fill:#fff}
+
+    /* ── Custom Auto-Scroll Icon ── */
+    .as-icon{
+      position:fixed;z-index:5000;pointer-events:none;
+      opacity:0;transform:translate(-50%,-50%) scale(0.5);
+      transition:opacity .15s ease,transform .15s ease;
+    }
+    .as-icon.vis{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    .as-icon .as-bg{fill:var(--bg-el);stroke:var(--accent);stroke-width:1.5;opacity:.95}
+    .as-icon .as-fg{fill:var(--accent)}
+    .as-icon svg{filter:drop-shadow(0 0 14px var(--accent-glow)) drop-shadow(0 0 4px rgba(201,164,74,.3))}
+    body.as-active,body.as-active *{cursor:none !important}
+
+    /* ── Custom Cursor + Trail ── */
+    .cur{
+      position:fixed;z-index:9999;pointer-events:none;
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 6px rgba(201,164,74,.5),0 0 14px var(--accent-glow);
+      transition:width .2s ease,height .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease;
+      will-change:left,top;
+    }
+    .cur.inv{background:#0a0a0a;box-shadow:0 0 6px rgba(0,0,0,.4)}
+    .cur.hover{
+      width:24px;height:24px;
+      background:transparent;
+      border:2px solid var(--accent);
+      box-shadow:0 0 14px rgba(201,164,74,.4),0 0 30px var(--accent-glow);
+    }
+    .cur.hover.inv{border-color:#0a0a0a;box-shadow:0 0 6px rgba(0,0,0,.3)}
+    .cur-t{
+      position:fixed;z-index:9998;pointer-events:none;
+      width:5px;height:5px;border-radius:50%;
+      background:var(--accent);
+      will-change:left,top,opacity,transform;
+    }
+    .bg-glow{
+      position:fixed;z-index:4000;pointer-events:none;
+      width:550px;height:550px;border-radius:50%;
+      background:radial-gradient(circle,rgba(201,164,74,.05) 0%,transparent 70%);
+      transform:translate(-50%,-50%);
+      will-change:left,top;
+    }
+    @media(pointer:coarse){
+      .cur,.cur-t,.bg-glow{display:none}
+      *,*::before,*::after{cursor:auto !important}
+      /* Flip-Tile: Tap toggles zwischen Vorder- und Rückseite */
+      .flip-tile.flipped .flip-inner{transform:rotateY(180deg)}
+      /* Hover-Transforms deaktivieren — flackern sonst bei jedem Tap */
+      .hero-title:hover,.section-title:hover{transform:none}
+      .hero-badge:hover{transform:none;background:var(--bg-el)}
+      .pcard:hover{transform:none}
+      .step:hover{transform:none;background:transparent;box-shadow:none}
+      .exc:hover{transform:none}
+      .cm:hover{transform:none;background:transparent;padding-left:0;margin-left:0}
+      .fq:hover{transform:none;color:var(--text)}
+      .ffl a:hover{transform:none}
+      .hero-stats > div:hover{transform:none}
+      .section-subtitle:hover,.hero-desc:hover{transform:none}
+      .pkg:hover{transform:none}
+      .btn-p:hover{transform:none}
+    }
+
+    /* ── Impressum / Datenschutz Modal ── */
+    .modal-overlay{
+      position:fixed;inset:0;z-index:8000;
+      background:rgba(0,0,0,.72);backdrop-filter:blur(10px);
+      opacity:0;pointer-events:none;transition:opacity .3s ease;
+      display:flex;align-items:flex-end;justify-content:center;
+    }
+    .modal-overlay.open{opacity:1;pointer-events:all}
+    .modal-box{
+      width:100%;max-width:680px;max-height:82vh;overflow-y:auto;
+      background:var(--bg-el);border-radius:22px 22px 0 0;
+      border:1px solid var(--border);border-bottom:none;
+      padding:2rem 2rem 3rem;
+      transform:translateY(100%);
+      transition:transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .modal-overlay.open .modal-box{transform:translateY(0)}
+    .modal-box::-webkit-scrollbar{width:4px}
+    .modal-box::-webkit-scrollbar-track{background:transparent}
+    .modal-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+    .modal-head{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);
+    }
+    .modal-title{font-size:1.05rem;font-weight:700}
+    .modal-close{
+      width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+      background:var(--bg-card);color:var(--text);cursor:pointer;
+      display:flex;align-items:center;justify-content:center;font-size:.9rem;
+      transition:all var(--transition);
+    }
+    .modal-close:hover{border-color:var(--accent);color:var(--accent)}
+    .modal-body h3{
+      font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--accent);margin:1.3rem 0 .5rem;
+    }
+    .modal-body h3:first-child{margin-top:0}
+    .modal-body p{font-size:.85rem;color:var(--text-m);line-height:1.85;margin-bottom:.4rem}
+    .modal-body a{color:var(--accent);text-decoration:none}
+    .modal-body a:hover{text-decoration:underline}
+    .modal-todo{
+      display:inline-block;padding:.15rem .45rem;
+      background:rgba(239,68,68,.15);color:#ef4444;
+      border-radius:5px;font-size:.75rem;font-weight:600;
+    }
+
+    /* ── Responsive ── */
+    @media(max-width:768px){
+      .face-content,.hero-content{padding:3rem 1.25rem 2rem}
+      .hero-stats{gap:1.5rem;flex-wrap:wrap}
+      .cgrid{grid-template-columns:1fr;gap:2rem}
+      .pkgs{grid-template-columns:1fr}
+      .waf{display:flex}
+      .theme-toggle{top:1rem;right:1rem;width:40px;height:40px;font-size:1rem}
+    }
+    @media(max-width:480px){
+      .hero-title{font-size:clamp(1.8rem,5vw,3rem)}
+      .hero-cta{flex-direction:column}
+      .hero-cta .btn{width:100%;justify-content:center}
+      .hero-stats{flex-direction:column;gap:1rem}
+      .flip-tile{width:96px;height:96px}
+      .ftb-2{font-size:3.4rem}
+      .ftb-fair{font-size:2rem}
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Theme"><span id="themeIcon">&#9790;</span></button>
+  <a href="https://wa.me/4915202102834" target="_blank" rel="noopener" class="waf" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ══ Background Glow ══ -->
+  <div class="bg-glow" id="bgGlow"></div>
+  <!-- ══ Ambient Idle Glow ══ -->
+  <div class="ambient-gl" id="ambientGl"></div>
+
+  <!-- ══ Custom Cursor ══ -->
+  <div class="cur" id="curDot"></div>
+
+  <!-- ══ Auto-Scroll Icon ══ -->
+  <div class="as-icon" id="asIcon">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <circle class="as-bg" cx="20" cy="20" r="18"/>
+      <path class="as-fg" d="M20 6l-6 8h12z"/>
+      <circle class="as-fg" cx="20" cy="20" r="2.5"/>
+      <path class="as-fg" d="M20 34l-6-8h12z"/>
+    </svg>
+  </div>
+
+  <!-- ══ FACES ══ -->
+  <div class="cube-viewport" id="vp">
+
+    <!-- 0: Hero -->
+    <div class="cube-face active" data-label="Start">
+      <div class="hero-content">
+        <div class="reveal vis">
+          <div class="hero-badge"><span class="hero-badge-dot"></span>Dienstleistung — jetzt verfügbar</div>
+        </div>
+        <div class="hero-title-row">
+          <h1 class="hero-title reveal vis rd1">Deine <span class="fh-t">Web</span>seite<br><span class="accent"><span class="fh">fair</span>en Preis.</span></h1>
+          <div class="flip-tile reveal vis rd2">
+            <div class="flip-inner">
+              <!-- Vorderseite: 2 + ZUM -->
+              <div class="flip-front">
+                <div class="ftb-wrap">
+                  <div class="ftb-2">2</div>
+                  <div class="ftb-bar">
+                    <span class="ftb-line"></span>
+                    <span class="ftb-zum">zum</span>
+                    <span class="ftb-line"></span>
+                  </div>
+                </div>
+              </div>
+              <!-- Rückseite: zum in Gold -->
+              <div class="flip-back">
+                <span class="ftb-fair">zum</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="hero-desc reveal vis rd2">Wir glauben: Ein professioneller Webauftritt sollte kein Luxus sein. FairWeb liefert dir Websites, die verkaufen — zu Preisen, die ehrlich sind.</p>
+        <div class="hero-cta reveal vis rd3">
+          <a href="#" class="btn btn-p nav-link" data-face="3">Faire Pakete ansehen &#8595;</a>
+          <a href="#" class="btn btn-g nav-link" data-face="5">Kostenlos beraten lassen</a>
+        </div>
+        <div class="hero-stats reveal vis rd4">
+          <div><div class="hs-n">50+</div><div class="hs-l">Zufriedene Kunden</div></div>
+          <div><div class="hs-n">&lt; 7 Tage</div><div class="hs-l">Durchschn. Lieferzeit</div></div>
+          <div><div class="hs-n">ab 200 €</div><div class="hs-l">Faire Festpreise</div></div>
+        </div>
+        <div class="fair-promise reveal vis rd4">
+          <strong>Unser Versprechen:</strong> Kein Preisschock, keine versteckten Kosten. Du zahlst genau das, was wir vereinbaren — <strong>fair, transparent, einmalig.</strong>
+        </div>
+      </div>
+      <div class="scroll-hint"><span>Scrollen</span><span>&#8595;</span></div>
+    </div>
+
+    <!-- 1: Problem -->
+    <div class="cube-face" data-label="Problem">
+      <div class="face-content">
+        <div class="reveal"><div class="section-label">Das Problem</div>
+          <h2 class="section-title">Ohne Website bist du unsichtbar.</h2>
+          <p class="section-subtitle">Die meisten Selbstständigen verlieren täglich potenzielle Kunden — einfach weil sie online nicht professionell auftreten.</p>
+        </div>
+        <div class="pgrid">
+          <div class="pcard reveal rd1">
+            <span class="pcard-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
+            <h3>Kein Vertrauen</h3><p>Kunden googeln dich — und finden nichts. Ohne professionelle Online-Präsenz wirkst du nicht vertrauenswürdig.</p>
+          </div>
+          <div class="pcard reveal rd2">
+            <span class="pcard-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            <h3>Verlorene Zeit</h3><p>Du erklärst jedem einzeln, was du anbietest. Eine Website arbeitet 24/7 für dich — automatisch.</p>
+          </div>
+          <div class="pcard reveal rd3">
+            <span class="pcard-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 6 12.5 15.5 7.5 10.5 1 18"/><polyline points="16 18 22 18 22 12"/></svg></span>
+            <h3>Umsatz bleibt liegen</h3><p>Jeder Tag ohne Website ist ein Tag, an dem potenzielle Kunden bei der Konkurrenz landen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2: Lösung -->
+    <div class="cube-face bg-el" data-label="Lösung">
+      <div class="face-content">
+        <div class="reveal"><div class="section-label">Die Lösung</div>
+          <h2 class="section-title">In 4 Schritten zu deiner Website.</h2>
+          <p class="section-subtitle">Kein Technik-Stress. Du sagst uns, was du brauchst — wir machen den Rest. Fair und unkompliziert.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal rd1"><div class="sn">01</div><h3>Erstgespräch</h3><p>Wir sprechen über dein Business, deine Ziele und dein Budget. Kostenlos und unverbindlich.</p></div>
+          <div class="step reveal rd2"><div class="sn">02</div><h3>Konzept & Design</h3><p>Wir erstellen ein Konzept, das zu dir passt. Feedback bis alles stimmt.</p></div>
+          <div class="step reveal rd3"><div class="sn">03</div><h3>Entwicklung</h3><p>Deine Website wird gebaut — schnell, responsiv, suchmaschinenoptimiert.</p></div>
+          <div class="step reveal rd4"><div class="sn">04</div><h3>Launch</h3><p>Deine Website geht live. Inklusive Einweisung für selbstständige Änderungen.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: Pakete -->
+    <div class="cube-face" data-label="Pakete">
+      <div class="face-content">
+        <div class="reveal"><div class="section-label">Faire Pakete</div>
+          <h2 class="section-title">Ehrliche Preise. Null versteckte Kosten.</h2>
+          <p class="section-subtitle">Warum "FairWeb"? Weil du genau weißt, was du bekommst — und was es kostet.</p>
+        </div>
+        <div class="pkgs">
+          <div class="pkg reveal rd1">
+            <div class="pkg-b">Starter</div><div class="pkg-nm">Basis-Paket</div>
+            <div class="pkg-pr">200 – 300 €</div><div class="pkg-nt">Einmalig — fair kalkuliert</div>
+            <ul class="pkg-ft">
+              <li><span class="ck">&#10003;</span>One-Page Website</li>
+              <li><span class="ck">&#10003;</span>Responsives Design</li>
+              <li><span class="ck">&#10003;</span>Kontaktformular</li>
+              <li><span class="ck">&#10003;</span>Basis-SEO</li>
+              <li><span class="ck">&#10003;</span>SSL-Zertifikat</li>
+              <li><span class="ck">&#10003;</span>Lieferung in 5–7 Tagen</li>
+              <li><span class="ck">&#10003;</span>1 Korrekturschleife</li>
+            </ul>
+            <a href="#" class="btn btn-g nav-link" data-face="5">Jetzt anfragen</a>
+          </div>
+          <div class="pkg ft reveal rd2">
+            <div class="pkg-b">Empfohlen</div><div class="pkg-nm">Premium-Paket</div>
+            <div class="pkg-pr">500 – 800 €</div><div class="pkg-nt">Einmalig — fair kalkuliert</div>
+            <ul class="pkg-ft">
+              <li><span class="ck">&#10003;</span>Multi-Page Website (bis 5 Seiten)</li>
+              <li><span class="ck">&#10003;</span>Individuelles Design</li>
+              <li><span class="ck">&#10003;</span>Kontaktformular & Maps</li>
+              <li><span class="ck">&#10003;</span>Erweiterte SEO-Optimierung</li>
+              <li><span class="ck">&#10003;</span>Performance-Optimierung</li>
+              <li><span class="ck">&#10003;</span>Social-Media-Integration</li>
+              <li><span class="ck">&#10003;</span>Lieferung in 7–14 Tagen</li>
+              <li><span class="ck">&#10003;</span>3 Korrekturschleifen</li>
+              <li><span class="ck">&#10003;</span>30 Tage Support nach Launch</li>
+            </ul>
+            <a href="#" class="btn btn-p nav-link" data-face="5">Jetzt anfragen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4: Beispiele -->
+    <div class="cube-face bg-el" data-label="Beispiele">
+      <div class="face-content">
+        <div class="reveal"><div class="section-label">Beispiele</div>
+          <h2 class="section-title">Projekte, die für sich sprechen.</h2>
+          <p class="section-subtitle">Jede Website individuell, jede mit fairem Preis.</p>
+        </div>
+        <div class="exg">
+          <div class="exc reveal rd1"><div class="exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="exi"><h3>Immobilienmakler München</h3><p>Premium-Website mit Objektgalerie und Kontaktfunnel</p><span class="ext">Premium-Paket</span></div></div>
+          <div class="exc reveal rd2"><div class="exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div><div class="exi"><h3>Friseursalon Berlin</h3><p>One-Pager mit Online-Buchung und Preisliste</p><span class="ext">Basis-Paket</span></div></div>
+          <div class="exc reveal rd3"><div class="exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 7H3L1 13a5 5 0 0010 0L9 7zM21 7h-4l-2 6a5 5 0 0010 0L23 7z"/><line x1="7" y1="21" x2="17" y2="21"/></svg></div><div class="exi"><h3>Rechtsanwalt Köln</h3><p>Seriöse Multi-Page-Präsenz mit Fachgebieten und Blog</p><span class="ext">Premium-Paket</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5: Kontakt -->
+    <div class="cube-face" data-label="Kontakt">
+      <div class="face-content">
+        <div class="reveal"><div class="section-label">Kontakt</div>
+          <h2 class="section-title">Lass uns sprechen.</h2>
+          <p class="section-subtitle">Erstberatung ist immer kostenlos — das ist fair.</p>
+        </div>
+        <div class="cgrid">
+          <div class="cinfo reveal rd1">
+            <p>Unsicher, welches Paket passt? Wir beraten dich ehrlich — ohne Verkaufsdruck.</p>
+            <div class="cm"><div class="cm-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="cm-l">E-Mail</div><div class="cm-t">raedalsomiri@gmail.com</div></div></div>
+            <div class="cm"><div class="cm-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15z"/></svg></div><div><div class="cm-l">Telefon / WhatsApp</div><div class="cm-t">01520 2102834</div></div></div>
+            <div class="cm"><div class="cm-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cm-l">Standort</div><div class="cm-t">Deutschland — Remote & Vor Ort</div></div></div>
+          </div>
+          <form class="cform reveal rd2" onsubmit="handleSubmit(event)">
+            <div class="fg"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Dein Name" required></div>
+            <div class="fg"><label for="email">E-Mail</label><input type="email" id="email" name="email" placeholder="deine@email.de" required></div>
+            <div class="fg"><label>Paket</label>
+              <div class="cs-wrap" id="paketDrop">
+                <div class="cs-trigger">
+                  <span class="cs-val">Paket wählen (optional)</span>
+                  <svg class="cs-arr" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="cs-list">
+                  <div class="cs-item" data-val="">Paket wählen (optional)</div>
+                  <div class="cs-item" data-val="basis">Basis-Paket (200–300 €)</div>
+                  <div class="cs-item" data-val="premium">Premium-Paket (500–800 €)</div>
+                  <div class="cs-item" data-val="unsicher">Noch unsicher</div>
+                </div>
+                <select id="paket" name="paket" style="display:none">
+                  <option value="">Paket wählen (optional)</option>
+                  <option value="basis">Basis-Paket (200–300 €)</option>
+                  <option value="premium">Premium-Paket (500–800 €)</option>
+                  <option value="unsicher">Noch unsicher</option>
+                </select>
+              </div>
+            </div>
+            <div class="fg"><label for="msg">Nachricht</label><textarea id="msg" name="message" placeholder="Erzähl uns kurz von deinem Projekt…" required></textarea></div>
+            <button type="submit" class="btn btn-p">Nachricht senden &#8594;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6: FAQ + Footer -->
+    <div class="cube-face bg-el" data-label="FAQ">
+      <div class="face-content">
+        <div class="reveal"><div class="section-label">FAQ</div><h2 class="section-title">Häufige Fragen.</h2></div>
+        <div class="flist">
+          <div class="fi reveal rd1"><button class="fq" onclick="toggleFaq(this)">Wie lange dauert es, bis meine Website fertig ist?<span class="ft">+</span></button><div class="fa"><p>Das Basis-Paket ist in 5–7 Werktagen fertig, das Premium-Paket in 7–14 Werktagen.</p></div></div>
+          <div class="fi reveal rd2"><button class="fq" onclick="toggleFaq(this)">Warum heißt ihr FairWeb?<span class="ft">+</span></button><div class="fa"><p>Weil professionelle Websites kein Vermögen kosten müssen. Faire Preise, transparente Kommunikation — darum fair2web.de.</p></div></div>
+          <div class="fi reveal rd3"><button class="fq" onclick="toggleFaq(this)">Brauche ich technisches Vorwissen?<span class="ft">+</span></button><div class="fa"><p>Nein. Wir übernehmen alles. Du sagst uns, was du dir vorstellst — den Rest erledigen wir.</p></div></div>
+          <div class="fi reveal rd4"><button class="fq" onclick="toggleFaq(this)">Kann ich die Website später selbst bearbeiten?<span class="ft">+</span></button><div class="fa"><p>Ja. Nach dem Launch bekommst du eine Einweisung. Bei Fragen sind wir erreichbar.</p></div></div>
+          <div class="fi reveal"><button class="fq" onclick="toggleFaq(this)">Was wenn mir das Design nicht gefällt?<span class="ft">+</span></button><div class="fa"><p>Du bekommst Korrekturschleifen (1 im Basis-, 3 im Premium-Paket). Wir stimmen alles ab.</p></div></div>
+          <div class="fi reveal"><button class="fq" onclick="toggleFaq(this)">Sind laufende Kosten dabei?<span class="ft">+</span></button><div class="fa"><p><strong style="color:var(--accent)">Nein.</strong> Unser Preis ist einmalig — Domain und Erstkonfiguration sind von Anfang an im Preis inbegriffen.</p></div></div>
+        </div>
+        <div class="ffoot">
+          <div class="ffi">
+            <div><div class="ffb"><span class="bf">Fair</span>Web</div><div class="fft">Professionelle Websites. Faire Preise.</div></div>
+            <div class="ffl"><a href="#" class="nav-link" data-face="3">Pakete</a><a href="#" class="nav-link" data-face="4">Arbeiten</a><a href="#" class="nav-link" data-face="5">Kontakt</a></div>
+          </div>
+          <div class="ffc">&copy; 2026 FairWeb — fair2web.de — Alle Rechte vorbehalten. &nbsp;·&nbsp; <a href="#" onclick="openModal('modalImpressum');return false;" style="color:var(--text-m);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-m)'">Impressum</a> &nbsp;·&nbsp; <a href="#" onclick="openModal('modalDatenschutz');return false;" style="color:var(--text-m);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-m)'">Datenschutz</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ Impressum Modal ══ -->
+  <div class="modal-overlay" id="modalImpressum" onclick="if(event.target===this)closeModal('modalImpressum')">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span class="modal-title">Impressum</span>
+        <button class="modal-close" onclick="closeModal('modalImpressum')">✕</button>
+      </div>
+      <div class="modal-body">
+        <h3>Angaben gemäß §5 TMG</h3>
+        <p>Raed Alsomiri<br>
+        Ikemannstraße 52<br>
+        48683 Ahaus</p>
+
+        <h3>Kontakt</h3>
+        <p>
+          E-Mail: <a href="mailto:raedalsomiri@gmail.com">raedalsomiri@gmail.com</a><br>
+          Tel.: <a href="tel:+4915202102834">01520 2102834</a>
+        </p>
+
+        <h3>Haftungsausschluss</h3>
+        <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Datenschutz Modal ══ -->
+  <div class="modal-overlay" id="modalDatenschutz" onclick="if(event.target===this)closeModal('modalDatenschutz')">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span class="modal-title">Datenschutzerklärung</span>
+        <button class="modal-close" onclick="closeModal('modalDatenschutz')">✕</button>
+      </div>
+      <div class="modal-body">
+        <h3>Verantwortlicher</h3>
+        <p>Raed Alsomiri, Ikemannstraße 52, 48683 Ahaus<br>
+        E-Mail: <a href="mailto:raedalsomiri@gmail.com">raedalsomiri@gmail.com</a></p>
+
+        <h3>Welche Daten wir verarbeiten</h3>
+        <p><strong style="color:var(--text)">Kontaktformular:</strong> Wenn Sie uns kontaktieren, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse sowie den Inhalt Ihrer Nachricht — ausschließlich zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Die Daten werden nicht an Dritte weitergegeben.</p>
+        <p><strong style="color:var(--text)">Theme-Einstellung:</strong> Ihre Farbmodus-Präferenz (Hell/Dunkel) wird lokal in Ihrem Browser gespeichert (localStorage). Es werden keine Daten an Server übertragen.</p>
+
+        <h3>Keine Analyse-Tools</h3>
+        <p>Wir verwenden keine Tracking- oder Analyse-Tools (kein Google Analytics, keine Drittanbieter-Cookies).</p>
+
+        <h3>Ihre Rechte (DSGVO)</h3>
+        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung sowie Einschränkung der Verarbeitung Ihrer personenbezogenen Daten (Art. 15–18 DSGVO). Anfragen bitte an: <a href="mailto:raedalsomiri@gmail.com">raedalsomiri@gmail.com</a></p>
+
+        <h3>Beschwerderecht</h3>
+        <p>Sie haben das Recht, sich bei einer zuständigen Datenschutz-Aufsichtsbehörde zu beschweren.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    // ── Theme ──
+    var tBtn=document.getElementById('themeToggle'),tIco=document.getElementById('themeIcon'),rt=document.documentElement;
+    function setTheme(t){rt.setAttribute('data-theme',t);tIco.innerHTML=t==='dark'?'&#9790;':'&#9728;';localStorage.setItem('theme',t)}
+    tBtn.onclick=function(){setTheme(rt.getAttribute('data-theme')==='dark'?'light':'dark')};
+    var sv=localStorage.getItem('theme');if(sv)setTheme(sv);
+
+    // ══════════════════════════════════════════════
+    //  3D Cube — Direct 1:1 scroll control
+    //  No spring · No snap · No auto-animation
+    //  Cube rotation follows input exactly
+    // ══════════════════════════════════════════════
+    var faces=[].slice.call(document.querySelectorAll('.cube-face'));
+    var total=faces.length;
+    var pos=0;           // current cube position (float, 0–6)
+    var activeIdx=0;
+    var dirty=true;      // needs re-render
+    var lastScrollT=0;   // timestamp of last scroll input (for auto-settle)
+
+    // ── Sensitivity: how much scroll → how much rotation ──
+    var SENS=0.00113;    // wheel pixels → position units
+
+    // ── Tile Intro-Spin ──
+    function triggerTileIntro(delay){
+      setTimeout(function(){
+        var inner=document.querySelector('.flip-tile .flip-inner');
+        if(!inner)return;
+        // Transition kurz deaktivieren → sofort auf 0 setzen → dann Animation
+        inner.style.transition='none';
+        inner.style.transform='rotateY(0deg)';
+        void inner.offsetWidth;
+        inner.style.transform='';
+        inner.classList.remove('intro-spin');
+        void inner.offsetWidth;
+        inner.classList.add('intro-spin');
+        setTimeout(function(){
+          inner.classList.remove('intro-spin');
+          // Transition kurz deaktivieren damit kein Rückdreh sichtbar wird
+          inner.style.transition='none';
+          inner.style.transform='rotateY(0deg)';
+          void inner.offsetWidth;
+          inner.style.transform='';
+          setTimeout(function(){inner.style.transition=''},50);
+        },2450);
+      },delay||0);
+    }
+
+    // ── Reveals ──
+    function setActive(idx){
+      if(idx===activeIdx)return;
+      faces[activeIdx].querySelectorAll('.reveal.vis').forEach(function(e){e.classList.remove('vis')});
+      faces[activeIdx].scrollTop=0;
+      activeIdx=idx;
+      setTimeout(function(){
+        faces[idx].querySelectorAll('.reveal').forEach(function(e){e.classList.add('vis')});
+      },100);
+      // Wenn zurück zur Startseite navigiert wird → Spin auslösen
+      if(idx===0)triggerTileIntro(350);
+    }
+
+    // ── Internal scroll (for sections with overflow like FAQ) ──
+    function tryScroll(dy){
+      var idx=Math.round(pos);
+      if(Math.abs(pos-idx)>0.05)return false;
+      var f=faces[idx];
+      if(f.scrollHeight<=f.clientHeight+2)return false;
+      var atTop=f.scrollTop<=1;
+      var atBot=f.scrollTop+f.clientHeight>=f.scrollHeight-2;
+      if(dy>0&&!atBot){f.scrollTop+=Math.abs(dy);return true}
+      if(dy<0&&!atTop){f.scrollTop+=dy;return true}
+      return false;
+    }
+
+    // ── Cache content containers for parallax ──
+    var contents=[];
+    for(var ci=0;ci<total;ci++){
+      contents.push(faces[ci].querySelector('.hero-content')||faces[ci].querySelector('.face-content'));
+    }
+
+    // ── Render: 3D cube rotation + content parallax ──
+    function render(){
+      var R=window.innerHeight/2;
+      for(var i=0;i<total;i++){
+        var f=faces[i];
+        var off=i-pos;
+
+        // Show faces within ±1.05 (just past 90° edge)
+        if(off<-1.05||off>1.05){
+          if(f.style.visibility!=='hidden')f.style.visibility='hidden';
+          continue;
+        }
+
+        f.style.visibility='visible';
+        var angle=off*-90;
+        f.style.transform='translateZ(-'+R+'px) rotateX('+angle+'deg) translateZ('+R+'px)';
+
+        // ── Content parallax: text swings & glides with rotation ──
+        var c=contents[i];
+        if(c){
+          var a=Math.abs(off);
+          var nearIdx=Math.round(Math.max(0,Math.min(total-1,pos)));
+          if(i===nearIdx){
+            // This is the active (nearest) face → clear inline styles so
+            // all CSS :hover rules work at any rotation angle
+            c.style.transform='';
+            c.style.opacity='';
+          }else{
+            var shift=off*60;            // text slides in rotation direction
+            var s=1-a*0.08;             // slight shrink when tilted
+            var o=Math.max(0,1-a*0.7);  // gentle fade toward edge
+            c.style.transform='translateY('+shift+'px) scale('+s+')';
+            c.style.opacity=String(o);
+          }
+        }
+      }
+    }
+
+    // ── Render loop: only paints when something changed ──
+    function tick(){
+      // Auto-settle: nach 800ms ohne Scroll sanft zur nächsten Seite einrasten
+      if(!midActive && Date.now()-lastScrollT>1400){
+        var nearT=Math.round(Math.max(0,Math.min(total-1,pos)));
+        var d=nearT-pos;
+        if(Math.abs(d)>0.0005){
+          pos+=d*0.12;
+          dirty=true;
+        } else if(pos!==nearT){
+          pos=nearT;
+          dirty=true;
+        }
+      }
+      if(dirty){
+        render();
+        var near=Math.round(Math.max(0,Math.min(total-1,pos)));
+        if(near!==activeIdx)setActive(near);
+        dirty=false;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // ── Clamp helper ──
+    function clamp(v){return Math.max(0,Math.min(total-1,v))}
+
+    // ── Wheel: direct 1:1 ──
+    document.addEventListener('wheel',function(e){
+      e.preventDefault();
+      if(tryScroll(e.deltaY))return;
+      var dy=e.deltaY;
+      if(e.deltaMode===1)dy*=40;
+      if(e.deltaMode===2)dy*=800;
+      pos=clamp(pos+dy*SENS);
+      lastScrollT=Date.now();
+      dirty=true;
+    },{passive:false});
+
+    // ── Touch: direct 1:1 finger tracking ──
+    var ty0=0,tyPrev=0,tpos0=0;
+    document.addEventListener('touchstart',function(e){
+      ty0=e.touches[0].clientY;
+      tyPrev=ty0;
+      tpos0=pos;
+    },{passive:true});
+
+    document.addEventListener('touchmove',function(e){
+      // Pinch-to-Zoom (2+ Finger) ignorieren → kein ungewolltes Würfeldrehen
+      if(e.touches.length>1)return;
+      var y=e.touches[0].clientY;
+      var delta=ty0-y;          // Gesamtdelta seit touchstart
+      var step=tyPrev-y;        // Inkrementelles Delta seit letztem Event
+      tyPrev=y;
+      // Echtes Finger-Delta weitergeben → sanftes internes Scrollen
+      if(tryScroll(step))return;
+      e.preventDefault();
+      pos=clamp(tpos0+delta/window.innerHeight);
+      lastScrollT=Date.now();
+      dirty=true;
+    },{passive:false});
+
+    // touchend: cube stays exactly where it is — no momentum, no snap
+
+    // ── Middle-click: custom auto-scroll icon + 1:1 cube rotation ──
+    var asIcon=document.getElementById('asIcon');
+    var midActive=false,midY0=0,midPos0=0;
+
+    // Suppress browser default auto-scroll on middle click
+    // Rechtsklick gedrückt halten → Würfel drehen
+    document.addEventListener('mousedown',function(e){
+      if(e.button===1||e.button===2){
+        e.preventDefault();
+        midActive=true;
+        midY0=e.clientY;
+        midPos0=pos;
+        asIcon.style.left=e.clientX+'px';
+        asIcon.style.top=e.clientY+'px';
+        asIcon.classList.add('vis');
+        document.body.classList.add('as-active');
+      }
+    });
+    // Kontextmenü unterdrücken damit Rechtsklick-Drag funktioniert
+    document.addEventListener('contextmenu',function(e){
+      // Nur unterdrücken wenn NICHT in einem Eingabefeld (damit Einfügen per Rechtsklick funktioniert)
+      var t=e.target;
+      if(t.tagName==='INPUT'||t.tagName==='TEXTAREA')return;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove',function(e){
+      if(!midActive)return;
+      // Icon follows cursor exactly
+      asIcon.style.left=e.clientX+'px';
+      asIcon.style.top=e.clientY+'px';
+      // Cube rotation 1:1 with vertical mouse movement
+      var delta=e.clientY-midY0;
+      pos=clamp(midPos0+delta/(window.innerHeight*0.8));
+      lastScrollT=Date.now();
+      dirty=true;
+    });
+
+    document.addEventListener('mouseup',function(e){
+      if((e.button===1||e.button===2)&&midActive){
+        midActive=false;
+        lastScrollT=Date.now()-790; // fast settle nach Loslassen
+        asIcon.classList.remove('vis');
+        document.body.classList.remove('as-active');
+      }
+    });
+
+    // Also suppress auxclick to prevent paste/open-in-new-tab
+    document.addEventListener('auxclick',function(e){
+      if(e.button===1)e.preventDefault();
+    });
+
+    // ── Keys ──
+    document.addEventListener('keydown',function(e){
+      var tag=document.activeElement.tagName;
+      if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
+      if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){
+        e.preventDefault();pos=Math.min(Math.round(pos)+1,total-1);dirty=true;
+      }
+      if(e.key==='ArrowUp'||e.key==='PageUp'){
+        e.preventDefault();pos=Math.max(Math.round(pos)-1,0);dirty=true;
+      }
+      if(e.key==='Home'){e.preventDefault();pos=0;dirty=true}
+      if(e.key==='End'){e.preventDefault();pos=total-1;dirty=true}
+    });
+
+    // ── Nav links (buttons inside sections) ──
+    [].slice.call(document.querySelectorAll('.nav-link')).forEach(function(l){
+      l.addEventListener('click',function(e){
+        e.preventDefault();
+        var t=parseInt(l.dataset.face);
+        if(!isNaN(t)){pos=t;dirty=true}
+      });
+    });
+
+    // ── FAQ ──
+    window.toggleFaq=function(btn){
+      var it=btn.parentElement,was=it.classList.contains('active');
+      document.querySelectorAll('.fi.active').forEach(function(i){i.classList.remove('active')});
+      if(!was)it.classList.add('active');
+    };
+
+    // ── Custom Dropdown ──
+    (function(){
+      var wrap=document.getElementById('paketDrop');
+      if(!wrap)return;
+      var trigger=wrap.querySelector('.cs-trigger');
+      var valEl=wrap.querySelector('.cs-val');
+      var items=wrap.querySelectorAll('.cs-item');
+      var hidden=wrap.querySelector('select');
+
+      trigger.addEventListener('click',function(e){
+        e.stopPropagation();
+        wrap.classList.toggle('open');
+      });
+
+      items.forEach(function(item){
+        item.addEventListener('click',function(){
+          var v=item.dataset.val;
+          valEl.textContent=item.textContent.replace(/^✓ /,'');
+          v?valEl.classList.add('chosen'):valEl.classList.remove('chosen');
+          hidden.value=v;
+          items.forEach(function(i){i.classList.remove('sel')});
+          if(v)item.classList.add('sel');
+          wrap.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click',function(e){
+        if(!wrap.contains(e.target))wrap.classList.remove('open');
+      });
+
+      // Expose reset helper
+      wrap._reset=function(){
+        valEl.textContent='Paket wählen (optional)';
+        valEl.classList.remove('chosen');
+        items.forEach(function(i){i.classList.remove('sel')});
+        hidden.value='';
+      };
+    })();
+
+    // ── Modals (Impressum / Datenschutz) ──
+    window.openModal=function(id){document.getElementById(id).classList.add('open')}
+    window.closeModal=function(id){document.getElementById(id).classList.remove('open')}
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(function(m){m.classList.remove('open')});
+    });
+
+    // ── Kontaktformular → Formspree ──
+    // ⚠️ SCHRITT FÜR DICH:
+    // 1. Kostenlos registrieren auf: https://formspree.io
+    // 2. "New Form" erstellen → E-Mail eintragen
+    // 3. Die Form-ID (z.B. "xpzgkwby") unten ersetzen
+    var FORMSPREE_ID = 'DEINE_FORM_ID'; // ← hier ersetzen
+
+    window.handleSubmit=function(e){
+      e.preventDefault();
+      var form=e.target;
+      var b=form.querySelector('button[type="submit"]'),o=b.innerHTML;
+
+      if(FORMSPREE_ID==='DEINE_FORM_ID'){
+        // Noch nicht konfiguriert → visuelles Feedback bis Formspree eingerichtet
+        b.innerHTML='Gesendet &#10003;';b.style.background='#4ade80';
+        setTimeout(function(){b.innerHTML=o;b.style.background='';form.reset();var d=document.getElementById('paketDrop');if(d&&d._reset)d._reset();},2500);
+        return;
+      }
+
+      b.innerHTML='Wird gesendet…';b.disabled=true;
+      fetch('https://formspree.io/f/'+FORMSPREE_ID,{
+        method:'POST',
+        body:new FormData(form),
+        headers:{Accept:'application/json'}
+      }).then(function(r){
+        if(r.ok){
+          b.innerHTML='Gesendet &#10003;';b.style.background='#4ade80';
+          setTimeout(function(){
+            b.innerHTML=o;b.style.background='';b.disabled=false;
+            form.reset();
+            var d=document.getElementById('paketDrop');if(d&&d._reset)d._reset();
+          },2500);
+        } else {
+          b.innerHTML='Fehler — bitte erneut versuchen';b.style.background='#ef4444';
+          setTimeout(function(){b.innerHTML=o;b.style.background='';b.disabled=false;},3000);
+        }
+      }).catch(function(){
+        b.innerHTML='Fehler — bitte erneut versuchen';b.style.background='#ef4444';
+        setTimeout(function(){b.innerHTML=o;b.style.background='';b.disabled=false;},3000);
+      });
+    };
+
+    // ── Custom Cursor + Gold Trail + BG Glow ──
+    if(window.matchMedia('(pointer:fine)').matches){
+      var curDot=document.getElementById('curDot');
+      var bgGlow=document.getElementById('bgGlow');
+      var TLEN=14;
+      var tDots=[],tX=[],tY=[];
+      var mx=window.innerWidth/2,my=window.innerHeight/2;
+      var curHov=false,curVis=false;
+
+      for(var ti=0;ti<TLEN;ti++){
+        var td=document.createElement('div');
+        td.className='cur-t';
+        document.body.appendChild(td);
+        tDots.push(td);
+        tX.push(mx);tY.push(my);
+      }
+
+      document.addEventListener('mousemove',function(e){
+        mx=e.clientX;my=e.clientY;
+        if(!curVis){curVis=true;curDot.style.opacity='1'}
+      },true);
+
+      document.addEventListener('mouseleave',function(){
+        curVis=false;curDot.style.opacity='0';
+        for(var ti=0;ti<TLEN;ti++)tDots[ti].style.opacity='0';
+      });
+      document.addEventListener('mouseenter',function(){
+        curVis=true;curDot.style.opacity='1';
+      });
+
+      // Hover detection: grow cursor on interactive elements
+      document.addEventListener('mouseover',function(e){
+        var t=e.target;
+        curHov=!!(t.closest&&(t.closest('a')||t.closest('button')||t.closest('.btn')||t.closest('.pcard')||t.closest('.exc')||t.closest('.fi')||t.closest('.flip-tile')));
+      });
+      document.addEventListener('mouseout',function(e){
+        var t=e.relatedTarget;
+        if(!t||!(t.closest&&(t.closest('a')||t.closest('button')||t.closest('.btn')||t.closest('.pcard')||t.closest('.exc')||t.closest('.fi')||t.closest('.flip-tile'))))curHov=false;
+      });
+
+      // ── Gold detection: cursor turns dark on gold elements ──
+      var gcFrame=0,curInv=false;
+      function isGoldUnder(x,y){
+        var el=document.elementFromPoint(x,y);
+        if(!el)return false;
+        try{
+          var s=getComputedStyle(el);
+          // Check text color
+          var c=s.color.match(/\d+/g);
+          if(c&&c.length>=3){
+            var r=+c[0],g=+c[1],b=+c[2];
+            if(r>150&&g>100&&b<120&&r>g)return true;
+          }
+          // Check background color
+          var bg=s.backgroundColor.match(/\d+/g);
+          if(bg&&bg.length>=3){
+            var r2=+bg[0],g2=+bg[1],b2=+bg[2];
+            if(r2>150&&g2>100&&b2<120&&r2>g2)return true;
+          }
+        }catch(e){}
+        return false;
+      }
+
+      function curTick(){
+        // Hide cursor+trail during middle-click (auto-scroll icon replaces it)
+        if(midActive||!curVis){
+          curDot.style.opacity='0';
+          for(var ti=0;ti<TLEN;ti++)tDots[ti].style.opacity='0';
+          requestAnimationFrame(curTick);
+          return;
+        }
+
+        // Gold contrast check (every 3rd frame for performance)
+        gcFrame++;
+        if(gcFrame%3===0)curInv=isGoldUnder(mx,my);
+        if(curInv)curDot.classList.add('inv');
+        else curDot.classList.remove('inv');
+
+        // Main dot
+        curDot.style.left=mx+'px';
+        curDot.style.top=my+'px';
+        curDot.style.opacity='1';
+        if(curHov)curDot.classList.add('hover');
+        else curDot.classList.remove('hover');
+
+        // Background glow follows cursor
+        bgGlow.style.left=mx+'px';
+        bgGlow.style.top=my+'px';
+
+        // Trail: each dot eases toward the one before it
+        tX[0]+=(mx-tX[0])*0.35;
+        tY[0]+=(my-tY[0])*0.35;
+        for(var ti=1;ti<TLEN;ti++){
+          tX[ti]+=(tX[ti-1]-tX[ti])*0.3;
+          tY[ti]+=(tY[ti-1]-tY[ti])*0.3;
+        }
+
+        for(var ti=0;ti<TLEN;ti++){
+          var p=ti/TLEN;
+          var sc=1-p*0.65;
+          var op=0.45*(1-p);
+          tDots[ti].style.left=tX[ti]+'px';
+          tDots[ti].style.top=tY[ti]+'px';
+          tDots[ti].style.transform='translate(-50%,-50%) scale('+sc+')';
+          tDots[ti].style.opacity=String(op);
+        }
+
+        requestAnimationFrame(curTick);
+      }
+      curTick();
+    }
+
+    // ── Flip Tile: Tap-Toggle auf Touch-Geräten ──
+    (function(){
+      var tile=document.querySelector('.flip-tile');
+      if(!tile||!window.matchMedia('(pointer:coarse)').matches)return;
+      tile.addEventListener('click',function(){
+        tile.classList.toggle('flipped');
+      });
+    })();
+
+    // ── Idle Ambient ──
+    var idleTimer;
+    function setIdle(){document.body.classList.add('idle')}
+    function resetIdle(){
+      clearTimeout(idleTimer);
+      document.body.classList.remove('idle');
+      idleTimer=setTimeout(setIdle,4000);  // 4 Sek. Inaktivität → Ambient an
+    }
+    ['mousemove','touchstart','wheel','keydown','click','scroll'].forEach(function(ev){
+      document.addEventListener(ev,resetIdle,{passive:true,capture:true});
+    });
+    resetIdle();
+
+    // ── Init ──
+    render();
+    requestAnimationFrame(tick);
+    // Erster Aufruf: Karte dreht sich nach kurzem Moment beim Seitenstart
+    triggerTileIntro(900);
+  })();
+  </script>
+</body>
+</html>
