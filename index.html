@@ -1107,22 +1107,23 @@
       dirty=true;
     },{passive:false});
 
-    // ── Touch: direct 1:1 finger tracking ──
-    var ty0=0,tyPrev=0,tpos0=0;
+    // ── Touch: Swipe-to-Snap (TikTok-Style) auf Mobile ──
+    var ty0=0,tyPrev=0,tpos0=0,tVelY=0;
     document.addEventListener('touchstart',function(e){
       ty0=e.touches[0].clientY;
       tyPrev=ty0;
       tpos0=pos;
+      tVelY=0;
     },{passive:true});
 
     document.addEventListener('touchmove',function(e){
-      // Pinch-to-Zoom (2+ Finger) ignorieren → kein ungewolltes Würfeldrehen
+      // Pinch-to-Zoom (2+ Finger) ignorieren
       if(e.touches.length>1)return;
       var y=e.touches[0].clientY;
-      var delta=ty0-y;          // Gesamtdelta seit touchstart
-      var step=tyPrev-y;        // Inkrementelles Delta seit letztem Event
+      var delta=ty0-y;
+      var step=tyPrev-y;
+      tVelY=step; // Geschwindigkeit des letzten Frames merken
       tyPrev=y;
-      // Echtes Finger-Delta weitergeben → sanftes internes Scrollen
       if(tryScroll(step))return;
       e.preventDefault();
       pos=clamp(tpos0+delta/window.innerHeight);
@@ -1130,7 +1131,34 @@
       dirty=true;
     },{passive:false});
 
-    // touchend: cube stays exactly where it is — no momentum, no snap
+    // touchend: Snap zur nächsten Seite wenn genug Schwung vorhanden
+    document.addEventListener('touchend',function(){
+      var SNAP_VEL=3; // Mindest-Geschwindigkeit für Seitenwechsel (px)
+      var nearIdx=Math.round(Math.max(0,Math.min(total-1,pos)));
+      var f=faces[nearIdx];
+      var hasScroll=f.scrollHeight>f.clientHeight+2;
+      var atTop=f.scrollTop<=1;
+      var atBot=f.scrollTop+f.clientHeight>=f.scrollHeight-2;
+
+      if(Math.abs(tVelY)<SNAP_VEL){
+        // Zu wenig Schwung → einfach einrasten
+        lastScrollT=0;
+        return;
+      }
+
+      var goDown=tVelY>0; // Finger nach oben = nächste Seite
+
+      // Seite hat noch Inhalt zum Scrollen → kein Seitenwechsel
+      if(hasScroll&&((goDown&&!atBot)||(!goDown&&!atTop))){
+        lastScrollT=0;
+        return;
+      }
+
+      // Snap zur nächsten/vorherigen Seite
+      pos=clamp(Math.round(tpos0)+(goDown?1:-1));
+      lastScrollT=Date.now()-790;
+      dirty=true;
+    },{passive:true});
 
     // ── Middle-click: custom auto-scroll icon + 1:1 cube rotation ──
     var asIcon=document.getElementById('asIcon');
