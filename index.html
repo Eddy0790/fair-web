@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FairWeb — Professionelle Websites zum fairen Preis | web2fair.de</title>
-  <meta name="description" content="FairWeb — Moderne Websites zu fairen Preisen. Professionell, persönlich, transparent. Ab 200 €.">
+  <title>WebFair — Professionelle Websites zum fairen Preis | web2fair.de</title>
+  <meta name="description" content="WebFair — Moderne Websites zu fairen Preisen. Professionell, persönlich, transparent. Ab 200 €.">
 
   <!-- ── Favicon (SVG, inline) ── -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='22' font-family='Inter,system-ui,sans-serif' font-size='15' font-weight='800' fill='%23c9a44a' text-anchor='middle'%3Efw%3C/text%3E%3C/svg%3E">
@@ -13,12 +13,12 @@
   <!-- ── Open Graph (WhatsApp / LinkedIn / Social Preview) ── -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://web2fair.de/">
-  <meta property="og:title" content="FairWeb — Professionelle Websites zum fairen Preis">
+  <meta property="og:title" content="WebFair — Professionelle Websites zum fairen Preis">
   <meta property="og:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 200 €. Erstberatung kostenlos.">
   <meta property="og:image" content="https://web2fair.de/og-image.jpg">
   <meta property="og:locale" content="de_DE">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FairWeb — Professionelle Websites zum fairen Preis">
+  <meta name="twitter:title" content="WebFair — Professionelle Websites zum fairen Preis">
   <meta name="twitter:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 200 €.">
   <meta name="twitter:image" content="https://web2fair.de/og-image.jpg">
 
@@ -640,6 +640,33 @@
       border-radius:5px;font-size:.75rem;font-weight:600;
     }
 
+    /* ── Nav Arrows (Desktop) ── */
+    .nav-arrows{
+      position:fixed;right:1.8rem;top:50%;
+      transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:.55rem;
+      z-index:2999;
+    }
+    .nav-arr{
+      width:44px;height:44px;border-radius:50%;
+      border:1px solid rgba(201,164,74,.25);
+      background:var(--bg-el);
+      backdrop-filter:blur(12px);
+      color:var(--accent);cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .3s cubic-bezier(.16,1,.3,1);
+      opacity:.6;box-shadow:0 2px 12px rgba(0,0,0,.2);
+    }
+    .nav-arr svg{width:16px;height:16px;display:block}
+    .nav-arr:hover{
+      border-color:var(--accent);opacity:1;
+      box-shadow:0 0 22px var(--accent-glow),0 2px 16px rgba(0,0,0,.3);
+      transform:scale(1.1);
+    }
+    .nav-arr:active{transform:scale(.93)}
+    .nav-arr.disabled{opacity:.15;pointer-events:none}
+    @media(pointer:coarse){.nav-arrows{display:none}}
+
     /* ── Responsive ── */
     @media(max-width:768px){
       .face-content,.hero-content{padding:3rem 1.25rem 2rem}
@@ -716,7 +743,7 @@
             </div>
           </div>
         </div>
-        <p class="hero-desc reveal vis rd2">Wir glauben: Ein professioneller Webauftritt sollte kein Luxus sein. FairWeb liefert dir Websites, die verkaufen — zu Preisen, die ehrlich sind.</p>
+        <p class="hero-desc reveal vis rd2">Wir glauben: Ein professioneller Webauftritt sollte kein Luxus sein. WebFair liefert dir Websites, die verkaufen — zu Preisen, die ehrlich sind.</p>
         <div class="hero-cta reveal vis rd3">
           <a href="#" class="btn btn-p nav-link" data-face="3">Faire Pakete ansehen &#8595;</a>
           <a href="#" class="btn btn-g nav-link" data-face="5">Kostenlos beraten lassen</a>
@@ -778,7 +805,7 @@
       <div class="face-content">
         <div class="reveal"><div class="section-label">Faire Pakete</div>
           <h2 class="section-title">Ehrliche Preise. Null versteckte Kosten.</h2>
-          <p class="section-subtitle">Warum "FairWeb"? Weil du genau weißt, was du bekommst — und was es kostet.</p>
+          <p class="section-subtitle">Warum "WebFair"? Weil du genau weißt, was du bekommst — und was es kostet.</p>
         </div>
         <div class="pkgs">
           <div class="pkg reveal rd1">
@@ -880,7 +907,7 @@
         <div class="reveal"><div class="section-label">FAQ</div><h2 class="section-title">Häufige Fragen.</h2></div>
         <div class="flist">
           <div class="fi reveal rd1"><button class="fq" onclick="toggleFaq(this)">Wie lange dauert es, bis meine Website fertig ist?<span class="ft">+</span></button><div class="fa"><p>Das Basis-Paket ist in 5–7 Werktagen fertig, das Premium-Paket in 7–14 Werktagen.</p></div></div>
-          <div class="fi reveal rd2"><button class="fq" onclick="toggleFaq(this)">Warum heißt ihr FairWeb?<span class="ft">+</span></button><div class="fa"><p>Weil professionelle Websites kein Vermögen kosten müssen. Faire Preise, transparente Kommunikation — darum web2fair.de.</p></div></div>
+          <div class="fi reveal rd2"><button class="fq" onclick="toggleFaq(this)">Warum heißt ihr WebFair?<span class="ft">+</span></button><div class="fa"><p>Weil professionelle Websites kein Vermögen kosten müssen. Faire Preise, transparente Kommunikation — darum web2fair.de.</p></div></div>
           <div class="fi reveal rd3"><button class="fq" onclick="toggleFaq(this)">Brauche ich technisches Vorwissen?<span class="ft">+</span></button><div class="fa"><p>Nein. Wir übernehmen alles. Du sagst uns, was du dir vorstellst — den Rest erledigen wir.</p></div></div>
           <div class="fi reveal rd4"><button class="fq" onclick="toggleFaq(this)">Kann ich die Website später selbst bearbeiten?<span class="ft">+</span></button><div class="fa"><p>Ja. Nach dem Launch bekommst du eine Einweisung. Bei Fragen sind wir erreichbar.</p></div></div>
           <div class="fi reveal"><button class="fq" onclick="toggleFaq(this)">Was wenn mir das Design nicht gefällt?<span class="ft">+</span></button><div class="fa"><p>Du bekommst Korrekturschleifen (1 im Basis-, 3 im Premium-Paket). Wir stimmen alles ab.</p></div></div>
@@ -891,11 +918,21 @@
             <div><div class="ffb"><span class="bf">Fair</span>Web</div><div class="fft">Professionelle Websites. Faire Preise.</div></div>
             <div class="ffl"><a href="#" class="nav-link" data-face="3">Pakete</a><a href="#" class="nav-link" data-face="4">Arbeiten</a><a href="#" class="nav-link" data-face="5">Kontakt</a></div>
           </div>
-          <div class="ffc">&copy; 2026 FairWeb — web2fair.de — Alle Rechte vorbehalten. &nbsp;·&nbsp; <a href="#" onclick="openModal('modalImpressum');return false;" style="color:var(--text-m);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-m)'">Impressum</a> &nbsp;·&nbsp; <a href="#" onclick="openModal('modalDatenschutz');return false;" style="color:var(--text-m);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-m)'">Datenschutz</a></div>
+          <div class="ffc">&copy; 2026 WebFair — web2fair.de — Alle Rechte vorbehalten. &nbsp;·&nbsp; <a href="#" onclick="openModal('modalImpressum');return false;" style="color:var(--text-m);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-m)'">Impressum</a> &nbsp;·&nbsp; <a href="#" onclick="openModal('modalDatenschutz');return false;" style="color:var(--text-m);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-m)'">Datenschutz</a></div>
         </div>
       </div>
     </div>
 
+  </div>
+
+  <!-- ══ Nav Arrows (Desktop) ══ -->
+  <div class="nav-arrows" id="navArrows">
+    <button class="nav-arr disabled" id="navArrUp" aria-label="Vorherige Seite">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+    <button class="nav-arr" id="navArrDown" aria-label="Nächste Seite">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
   </div>
 
   <!-- ══ Impressum Modal ══ -->
@@ -970,6 +1007,8 @@
     var activeIdx=0;
     var dirty=true;      // needs re-render
     var lastScrollT=0;   // timestamp of last scroll input (for auto-settle)
+    var animTarget=-1;   // Zielseite für Pfeil-Animation (-1 = inaktiv)
+    var holdDir=0;       // Gedrückt-Halten Richtung (0=aus, 1=runter, -1=rauf)
 
     // ── Sensitivity: how much scroll → how much rotation ──
     var SENS=0.00113;    // wheel pixels → position units
@@ -1071,8 +1110,22 @@
 
     // ── Render loop: only paints when something changed ──
     function tick(){
-      // Auto-settle: nach 800ms ohne Scroll sanft zur nächsten Seite einrasten
-      if(!midActive && Date.now()-lastScrollT>1400){
+      if(holdDir!==0){
+        // Gedrückt-Halten: langsame kontinuierliche Rotation
+        pos=clamp(pos+holdDir*0.006);
+        dirty=true;
+      } else if(animTarget>=0){
+        // Pfeil-Animation: sanft zur Zielseite gleiten (Vorrang vor Auto-Settle)
+        var da=animTarget-pos;
+        if(Math.abs(da)<0.0008){
+          pos=animTarget;
+          animTarget=-1;
+        } else {
+          pos+=da*0.14;
+        }
+        dirty=true;
+      } else if(!midActive && Date.now()-lastScrollT>1400){
+        // Auto-settle: nach 1400ms ohne Scroll sanft einrasten
         var nearT=Math.round(Math.max(0,Math.min(total-1,pos)));
         var d=nearT-pos;
         if(Math.abs(d)>0.0005){
@@ -1293,7 +1346,7 @@
     // 1. Kostenlos registrieren auf: https://formspree.io
     // 2. "New Form" erstellen → E-Mail eintragen
     // 3. Die Form-ID (z.B. "xpzgkwby") unten ersetzen
-    var FORMSPREE_ID = 'DEINE_FORM_ID'; // ← hier ersetzen
+    var FORMSPREE_ID = 'meedzplo';
 
     window.handleSubmit=function(e){
       e.preventDefault();
@@ -1463,6 +1516,64 @@
       document.addEventListener(ev,resetIdle,{passive:true,capture:true});
     });
     resetIdle();
+
+    // ── Nav Arrows (Desktop only) ──
+    (function(){
+      var arrUp=document.getElementById('navArrUp');
+      var arrDown=document.getElementById('navArrDown');
+      if(!arrUp||!arrDown)return;
+      function updArrows(){
+        arrUp.classList.toggle('disabled',activeIdx<=0);
+        arrDown.classList.toggle('disabled',activeIdx>=total-1);
+      }
+
+      function setupArrow(btn,dir){
+        var holdTimer=null,held=false,blockClick=false;
+
+        btn.addEventListener('mousedown',function(e){
+          e.preventDefault();
+          held=false;
+          blockClick=false;
+          holdTimer=setTimeout(function(){
+            held=true;
+            blockClick=true; // click-Event nach Loslassen blockieren
+            holdDir=dir;
+            animTarget=-1;
+          },220);
+        });
+
+        function endHold(){
+          clearTimeout(holdTimer);
+          if(held){
+            held=false;
+            holdDir=0;
+            animTarget=Math.round(Math.max(0,Math.min(total-1,pos)));
+            dirty=true;
+          }
+        }
+        btn.addEventListener('mouseup',endHold);
+        btn.addEventListener('mouseleave',endHold);
+
+        btn.addEventListener('click',function(){
+          // Nach einem Hold den click ignorieren (sonst springt er eine Seite weiter)
+          if(blockClick){blockClick=false;return;}
+          var base=animTarget>=0?animTarget:activeIdx;
+          var target=clamp(base+dir);
+          if(target===base)return;
+          animTarget=target;
+          dirty=true;
+        });
+      }
+
+      setupArrow(arrUp,-1);
+      setupArrow(arrDown,1);
+      // Pfeilzustand bei Seitenwechsel aktualisieren
+      var prevAi=-1;
+      setInterval(function(){
+        if(activeIdx!==prevAi){prevAi=activeIdx;updArrows();}
+      },150);
+    })();
+
 
     // ── Init ──
     render();
