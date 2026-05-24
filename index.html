@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebFair — Professionelle Websites zum fairen Preis | web2fair.de</title>
-  <meta name="description" content="WebFair — Moderne Websites zu fairen Preisen. Professionell, persönlich, transparent. Ab 200 €.">
+  <meta name="description" content="WebFair — Moderne Websites zu fairen Preisen. Professionell, persönlich, transparent. Ab 300 €.">
 
   <!-- ── Favicon (SVG, inline) ── -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2309090b'/%3E%3Ctext x='16' y='22' font-family='Inter,system-ui,sans-serif' font-size='15' font-weight='800' fill='%23c9a44a' text-anchor='middle'%3Efw%3C/text%3E%3C/svg%3E">
@@ -14,12 +14,12 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://web2fair.de/">
   <meta property="og:title" content="WebFair — Professionelle Websites zum fairen Preis">
-  <meta property="og:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 200 €. Erstberatung kostenlos.">
+  <meta property="og:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 300 €. Erstberatung kostenlos.">
   <meta property="og:image" content="https://web2fair.de/og-image.jpg">
   <meta property="og:locale" content="de_DE">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="WebFair — Professionelle Websites zum fairen Preis">
-  <meta name="twitter:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 200 €.">
+  <meta name="twitter:description" content="Websites für Selbstständige & kleine Unternehmen — professionell, schnell, transparent. Ab 300 €.">
   <meta name="twitter:image" content="https://web2fair.de/og-image.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -751,7 +751,7 @@
         <div class="hero-stats reveal vis rd4">
           <div><div class="hs-n">50+</div><div class="hs-l">Zufriedene Kunden</div></div>
           <div><div class="hs-n">&lt; 7 Tage</div><div class="hs-l">Durchschn. Lieferzeit</div></div>
-          <div><div class="hs-n">ab 200 €</div><div class="hs-l">Faire Festpreise</div></div>
+          <div><div class="hs-n">ab 300 €</div><div class="hs-l">Faire Festpreise</div></div>
         </div>
         <div class="fair-promise reveal vis rd4">
           <strong>Unser Versprechen:</strong> Kein Preisschock, keine versteckten Kosten. Du zahlst genau das, was wir vereinbaren — <strong>fair, transparent, einmalig.</strong>
@@ -810,7 +810,7 @@
         <div class="pkgs">
           <div class="pkg reveal rd1">
             <div class="pkg-b">Starter</div><div class="pkg-nm">Basis-Paket</div>
-            <div class="pkg-pr">200 – 300 €</div><div class="pkg-nt">Einmalig — fair kalkuliert</div>
+            <div class="pkg-pr">300 – 450 €</div><div class="pkg-nt">Einmalig — fair kalkuliert</div>
             <ul class="pkg-ft">
               <li><span class="ck">&#10003;</span>One-Page Website</li>
               <li><span class="ck">&#10003;</span>Responsives Design</li>
@@ -824,7 +824,7 @@
           </div>
           <div class="pkg ft reveal rd2">
             <div class="pkg-b">Empfohlen</div><div class="pkg-nm">Premium-Paket</div>
-            <div class="pkg-pr">500 – 800 €</div><div class="pkg-nt">Einmalig — fair kalkuliert</div>
+            <div class="pkg-pr">600 – 900 €</div><div class="pkg-nt">Einmalig — fair kalkuliert</div>
             <ul class="pkg-ft">
               <li><span class="ck">&#10003;</span>Multi-Page Website (bis 5 Seiten)</li>
               <li><span class="ck">&#10003;</span>Individuelles Design</li>
@@ -882,14 +882,14 @@
                 </div>
                 <div class="cs-list">
                   <div class="cs-item" data-val="">Paket wählen (optional)</div>
-                  <div class="cs-item" data-val="basis">Basis-Paket (200–300 €)</div>
-                  <div class="cs-item" data-val="premium">Premium-Paket (500–800 €)</div>
+                  <div class="cs-item" data-val="basis">Basis-Paket (300–450 €)</div>
+                  <div class="cs-item" data-val="premium">Premium-Paket (600–900 €)</div>
                   <div class="cs-item" data-val="unsicher">Noch unsicher</div>
                 </div>
                 <select id="paket" name="paket" style="display:none">
                   <option value="">Paket wählen (optional)</option>
-                  <option value="basis">Basis-Paket (200–300 €)</option>
-                  <option value="premium">Premium-Paket (500–800 €)</option>
+                  <option value="basis">Basis-Paket (300–450 €)</option>
+                  <option value="premium">Premium-Paket (600–900 €)</option>
                   <option value="unsicher">Noch unsicher</option>
                 </select>
               </div>
@@ -1070,9 +1070,13 @@
       contents.push(faces[ci].querySelector('.hero-content')||faces[ci].querySelector('.face-content'));
     }
 
+    // ── Viewport-Höhe cachen (teuer wenn in jedem Frame gelesen) ──
+    var VH=window.innerHeight;
+    window.addEventListener('resize',function(){VH=window.innerHeight;});
+
     // ── Render: 3D cube rotation + content parallax ──
     function render(){
-      var R=window.innerHeight/2;
+      var R=VH/2;
       for(var i=0;i<total;i++){
         var f=faces[i];
         var off=i-pos;
@@ -1162,54 +1166,58 @@
 
     // ── Touch: Swipe-to-Snap (TikTok-Style) auf Mobile ──
     var ty0=0,tyPrev=0,tpos0=0,tVelY=0;
+    // Velocity-History: letzten 80ms tracken für zuverlässige Snap-Erkennung
+    var tVelBuf=[];
     document.addEventListener('touchstart',function(e){
       ty0=e.touches[0].clientY;
       tyPrev=ty0;
       tpos0=pos;
       tVelY=0;
+      tVelBuf=[];
+      animTarget=-1; // laufende Animation stoppen
     },{passive:true});
 
     document.addEventListener('touchmove',function(e){
-      // Pinch-to-Zoom (2+ Finger) ignorieren
       if(e.touches.length>1)return;
       var y=e.touches[0].clientY;
       var delta=ty0-y;
       var step=tyPrev-y;
-      tVelY=step; // Geschwindigkeit des letzten Frames merken
       tyPrev=y;
+      // Velocity-Buffer: nur die letzten 80ms behalten
+      var now=Date.now();
+      tVelBuf.push({v:step,t:now});
+      while(tVelBuf.length>1&&now-tVelBuf[0].t>80)tVelBuf.shift();
       if(tryScroll(step))return;
       e.preventDefault();
-      pos=clamp(tpos0+delta/window.innerHeight);
-      lastScrollT=Date.now();
+      pos=clamp(tpos0+delta/VH);
+      lastScrollT=now;
       dirty=true;
     },{passive:false});
 
     // touchend: Snap zur nächsten Seite wenn genug Schwung vorhanden
     document.addEventListener('touchend',function(){
-      var SNAP_VEL=3; // Mindest-Geschwindigkeit für Seitenwechsel (px)
+      var SNAP_VEL=2.5;
+      // Durchschnittsvelocity der letzten 80ms → robuster als einzelner Frame
+      var avg=0;
+      if(tVelBuf.length){
+        for(var k=0;k<tVelBuf.length;k++)avg+=tVelBuf[k].v;
+        avg/=tVelBuf.length;
+      }
+      tVelY=avg;
+
       var nearIdx=Math.round(Math.max(0,Math.min(total-1,pos)));
       var f=faces[nearIdx];
       var hasScroll=f.scrollHeight>f.clientHeight+2;
       var atTop=f.scrollTop<=1;
       var atBot=f.scrollTop+f.clientHeight>=f.scrollHeight-2;
 
-      if(Math.abs(tVelY)<SNAP_VEL){
-        // Zu wenig Schwung → einfach einrasten
-        lastScrollT=0;
-        return;
-      }
+      if(Math.abs(tVelY)<SNAP_VEL){lastScrollT=0;return;}
 
-      var goDown=tVelY>0; // Finger nach oben = nächste Seite
+      var goDown=tVelY>0;
+      if(hasScroll&&((goDown&&!atBot)||(!goDown&&!atTop))){lastScrollT=0;return;}
 
-      // Seite hat noch Inhalt zum Scrollen → kein Seitenwechsel
-      if(hasScroll&&((goDown&&!atBot)||(!goDown&&!atTop))){
-        lastScrollT=0;
-        return;
-      }
-
-      // Snap zur nächsten/vorherigen Seite
-      pos=clamp(Math.round(tpos0)+(goDown?1:-1));
-      lastScrollT=Date.now()-790;
+      // Smooth-Snap via animTarget (gleiche Easing wie Pfeil-Buttons)
+      animTarget=clamp(Math.round(tpos0)+(goDown?1:-1));
       dirty=true;
     },{passive:true});
 
